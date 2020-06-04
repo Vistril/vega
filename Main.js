@@ -15,6 +15,7 @@ class Main extends AkairoClient {
 
     main() {
         this.on("ready", () => this.ready());
+        if (!process.env.TOKEN) require('dotenv').config();
         this.login(process.env.TOKEN);
     }
 }
