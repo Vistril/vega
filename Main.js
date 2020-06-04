@@ -1,4 +1,4 @@
-const { AkairoClient } = require('discord-akairo');
+const { AkairoClient, CommandHandler } = require('discord-akairo');
 
 class Main extends AkairoClient {
     constructor() {
@@ -7,10 +7,16 @@ class Main extends AkairoClient {
         }, {
             disableEveryone: true
         });
+
+        this.TaskViewer = new CommandHandler(this, {
+            directory: "./VegaCore/Tasks/",
+            prefix: "vega "
+        })
     }
 
     ready() {
         console.log("Logged in as " + this.user.tag);
+        this.TaskViewer.loadAll();
     }
 
     main() {
