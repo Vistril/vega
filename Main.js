@@ -11,7 +11,7 @@ class Main extends AkairoClient {
         this.TaskViewer = new CommandHandler(this, {
             directory: "./VegaCore/Tasks/",
             prefix: "vega "
-        })
+        });
     }
 
     ready() {
