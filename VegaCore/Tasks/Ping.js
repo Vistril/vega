@@ -6,6 +6,10 @@ class Ping extends Command {
             aliases:['ms', 'response', 'ping']
         });
     }
+
+    async exec(m) {
+        m.channel.send(`My response time is ${~~this.client.ws.ping}.`)
+    }
 }
 
 module.exports = Ping;
