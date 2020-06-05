@@ -10,12 +10,13 @@ class Main extends AkairoClient {
 
         this.TaskViewer = new CommandHandler(this, {
             directory: "./VegaCore/Tasks/",
-            prefix: "vega "
+            prefix: "<@717829830237749308> "
         });
     }
 
     ready() {
         console.log("Logged in as " + this.user.tag);
+        this.user.setActivity("DOOM Eternal");
         this.TaskViewer.loadAll();
     }
 
