@@ -8,8 +8,8 @@ class Ping extends Command {
         });
     }
 
-    async exec(m) {
-        m.channel.send(`My response time is ${~~this.client.ws.ping}.`)
+    async exec({ channel }) {
+        channel.send(`My response time is ${~~this.client.ws.ping}.`)
     }
 }
 

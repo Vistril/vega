@@ -22,7 +22,7 @@ class Help extends Command {
         return Task;
     }
 
-    async exec(m, args) {
+    async exec({ author, channel }, args) {
         const TaskReq = fetchTaskInfo(args.TaskToFind);
         let embed = new MessageEmbed()
             .setTitle("I am VEGA")
@@ -35,6 +35,7 @@ class Help extends Command {
                 }
             )
             .setTimestamp()
-            .setFooter(`Requested by ${m.author.tag}`)
+            .setFooter(`Requested by ${author.tag}`);
+        channel.send(embed);
     }
 }
