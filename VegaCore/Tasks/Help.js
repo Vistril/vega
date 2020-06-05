@@ -36,6 +36,8 @@ class Help extends Command {
             )
             .setTimestamp()
             .setFooter(`Requested by ${author.tag}`);
-        channel.send(embed);
+        channel.send(embed)
+                .then(() => {})
+                .catch(e => channel.send);
     }
 }
