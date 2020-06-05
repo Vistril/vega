@@ -1,5 +1,6 @@
 const { Command } = require('discord-akairo');
 const { MessageEmbed } = require('discord.js');
+const { inspect } = require('util');
 const Client = require('../../Main.js');
 const VEGA = new Client();
 
@@ -17,13 +18,13 @@ class Help extends Command {
         });
     }
 
-    async fetchTaskInfo(task) {
-        let Task = await VEGA.TaskViewer.findCommand(task);
+    fetchTaskInfo(task) {
+        let Task = VEGA.TaskViewer.findCommand(task);
         return Task;
     }
 
     async exec({ author, channel }, args) {
-        const TaskReq = fetchTaskInfo(args.TaskToFind);
+        const TaskReq = this.fetchTaskInfo(args.TaskToFind);
         let embed = new MessageEmbed()
             .setTitle("I am VEGA")
             .setColor("")
@@ -36,8 +37,12 @@ class Help extends Command {
             )
             .setTimestamp()
             .setFooter(`Requested by ${author.tag}`);
-        channel.send(embed)
-                .then(() => {})
-                .catch(e => channel.send);
+        if (!args.TaskToFind) {
+            await channel.send(embed);
+        } else {
+            await channel.send(VEGA.TaskViewer.findCommand(args.TaskToFind));
+        }
     }
 }
+
+module.exports = Help;
