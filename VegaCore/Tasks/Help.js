@@ -1,14 +1,12 @@
-const { Command } = require('discord-akairo');
+const { Command, CommandHandler } = require('discord-akairo');
 const { MessageEmbed } = require('discord.js');
-const { inspect } = require('util');
 const Client = require('../../Main.js');
-const VEGA = new Client();
 
 class Help extends Command {
     constructor() {
         super('help', {
-            aliases:['help', 'h'],
-            description:"Displays info of bot and it's tasks",
+            aliases: ['help', 'h'],
+            description: "Displays info of bot and it's tasks",
             args: [
                 {
                     id: "TaskToFind",
@@ -19,11 +17,14 @@ class Help extends Command {
     }
 
     fetchTaskInfo(task) {
-        let Task = VEGA.TaskViewer.findCommand(task);
+        this.TaskViewer = new CommandHandler(this.client, {
+            directory: process.cwd() + "/VegaCore/Tasks/"
+        });
+        let Task = this.TaskViewer.modules.map(e => e);
         return Task;
     }
 
-    async exec({ author, channel }, args) {
+    async exec({ author, channel, util }, args) {
         const TaskReq = this.fetchTaskInfo(args.TaskToFind);
         let embed = new MessageEmbed()
             .setTitle("I am VEGA")
@@ -37,11 +38,7 @@ class Help extends Command {
             )
             .setTimestamp()
             .setFooter(`Requested by ${author.tag}`);
-        if (!args.TaskToFind) {
-            await channel.send(embed);
-        } else {
-            await channel.send(VEGA.TaskViewer.findCommand(args.TaskToFind));
-        }
+        util.send(require('util').inspect(TaskReq))
     }
 }
 
