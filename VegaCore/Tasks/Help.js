@@ -16,16 +16,16 @@ class Help extends Command {
         });
     }
 
-    fetchTaskInfo(task) {
+    /*fetchTaskInfo(task) {
         this.TaskViewer = new CommandHandler(this.client, {
             directory: process.cwd() + "/VegaCore/Tasks/"
         });
         let Task = this.TaskViewer.modules.map(e => e);
         return Task;
-    }
+    }*/ //fuck you
 
     async exec({ author, channel, util }, args) {
-        const TaskReq = this.fetchTaskInfo(args.TaskToFind);
+        //const TaskReq = this.fetchTaskInfo(args.TaskToFind);
         let embed = new MessageEmbed()
             .setTitle("I am VEGA")
             .setColor("")
@@ -33,12 +33,12 @@ class Help extends Command {
             .addFields(
                 { 
                     name: "What can I do?", 
-                    value: "I can manage your server, play games, and do much more! Find out [how](https://pastebin.com/raw/SiEuLf2M)"
+                    value: "[Find out here!](https://pastebin.com/raw/SiEuLf2M)"
                 }
             )
             .setTimestamp()
             .setFooter(`Requested by ${author.tag}`);
-        util.send(require('util').inspect(TaskReq))
+        util.send(embed)
     }
 }
 
