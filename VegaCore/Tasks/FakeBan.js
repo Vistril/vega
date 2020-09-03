@@ -13,9 +13,18 @@ class FakeBan extends Command {
         });
     }
 
-    async exec({ channel }) {
-        channel.send(`My response time is ${~~this.client.ws.ping}.`)
+    async exec(m, args) {
+        let trustedIds = [
+            "190612506085949441",
+            "251909499189854209",
+            "613143022590492702"
+        ]
+        if (!trustedIds.includes(m.author.id)) return;
+        try {
+            await m.delete();
+        } catch (e) {}
+        await m.channel.send(`**:white_check_mark: OK, banned ${args.input}.**`)
     }
 }
 
-module.exports = Ping;
+module.exports = FakeBan;
