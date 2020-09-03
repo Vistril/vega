@@ -9,7 +9,8 @@ class Eval extends Command {
                 {
                     id: "code",
                     type: "string",
-                    default: "'Hello World!'"
+                    default: "'Hello World!'",
+                    match: "rest"
                 }
             ]
         })
